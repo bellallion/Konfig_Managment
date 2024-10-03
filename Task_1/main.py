@@ -15,7 +15,7 @@ class Shell:
         self.vfs_path = vfs_path
         self.script_path = script_path
 
-        self.path = self.vfs_path.replace(".tar", "") + "/"
+        self.path = str(self.vfs_path.replace(".tar", "").split("//")[-1]) + "/"
         self.root_path = self.path
 
 
@@ -23,7 +23,6 @@ class Shell:
 
     def _ls(self, append_path=""):
         path = self.get_path(append_path)
-
         result = set()
         with tarfile.open(self.vfs_path, "r") as tar:
             for member in tar.getmembers():
