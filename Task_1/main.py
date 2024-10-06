@@ -15,7 +15,8 @@ class Shell:
         self.vfs_path = vfs_path
         self.script_path = script_path
 
-        self.path = str(self.vfs_path.replace(".tar", "").split("//")[-1]) + "/"
+        self.path = self.vfs_path.replace(".tar", "")
+        self.path = str(self.path.split("/")[-1]) + "/"
         self.root_path = self.path
 
 
@@ -82,7 +83,7 @@ class Shell:
                 if member.name == path and member.isdir():
                     break
             else:
-                return "No such directory"
+                return "No such path"
             result = set()
             total_size = 0
             for member in tar.getmembers():
@@ -98,19 +99,20 @@ class Shell:
             return "\n".join(result) + "\n" + f"Total size: {total_size} bytes"
 
     def _chown(self, user, path, operation=""):
-
+        not_such_file = True
         path = self.get_path(path)[:-1]
         with tarfile.open(self.vfs_path, "r") as tar:
             for member in tar.getmembers():
                 if operation == "-R":
                     if member.name.startswith(path):
                         member.uname = user
+                        not_such_file = False
                 else:
-                    if member.name == path:
+                    if  member.name == path :
                         member.uname = user
-            else:
-                return "No such path"
-
+                        not_such_file = False
+        if not_such_file:
+            return "No such path"
     #---------------------------------------------
 
     def get_path(self, path):
@@ -137,7 +139,12 @@ class Shell:
             print("...")
             return True
         elif cmd == 'ls':
-            print(self._ls())
+            if len(parts_command) == 2:
+                print(self._ls(parts_command[1]))
+            elif len(parts_command) == 1:
+                print(self._ls())
+            else:
+                print(f"{cmd}:incorrect command")
         elif cmd == 'cd':
             if len(parts_command) == 2:
                 ans = self._cd(parts_command[1])
@@ -200,7 +207,7 @@ def run_program(username, vfs_path, script_path):
     shell.run_console()
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Shell emulator')
+    parser = argparse.ArgumentParser('Shell emulator')
     parser.add_argument('username', type=str, help='The username to show in the input prompt')
     parser.add_argument('vfs_path', type=str, help='The path to the archive of the virtual file system.')
     parser.add_argument('script_path', type=str, help='The path to the start script.')
