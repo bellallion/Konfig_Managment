@@ -108,7 +108,6 @@ class Shell:
     def _chown(self, user, path, operation=""):
         not_such_file = True
         path = self.get_path(path)[:-1]
-        print(path)
         self.create_dictionary_username()
         with tarfile.open(self.vfs_path, "r") as tar:
             for member in tar.getmembers():

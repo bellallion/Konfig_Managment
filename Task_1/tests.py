@@ -97,14 +97,14 @@ class TestsAllFunctions(unittest.TestCase):
 
     def test_chown(self):
         self.shell._cd("documents")
-        res = self.shell._chown("alena", "school")
+        self.shell._chown("alena", "school")
         for name in self.shell.list_uname:
             if name[0] == "files_archive/documents/school":
                 self.assertEqual(name[1], "alena")
 
     def test_chown_R(self):
         self.shell._cd("documents")
-        res = self.shell._chown("alena", "school", "-R")
+        self.shell._chown("alena", "school", "-R")
         for name in self.shell.list_uname:
             if name[0].startswith( "files_archive/documents/school"):
                 self.assertEqual(name[1], "alena")
