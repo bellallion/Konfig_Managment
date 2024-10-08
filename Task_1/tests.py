@@ -1,22 +1,20 @@
 import unittest
-
 import Task_1.main
-
 
 class TestsAllFunctions(unittest.TestCase):
 
     def setUp(self):
         self.shell = Task_1.main.Shell("test_user", "files_archive.tar", "")
+
 #----------------------test _ls function--------------------------------
     def test_ls_root(self):
         output = self.shell._ls()
         self.assertTrue(output =="documents\nusers" or output =="users\ndocuments")
 
     def test_ls_file(self):
-        expected_output = "alena.txt"
         self.shell.path = "files_archive/users/"
         output = self.shell._ls()
-        self.assertEqual(output, expected_output)
+        self.assertEqual(output, "alena.txt")
 
     def test_ls_non_existing_path(self):
         output = self.shell._ls("dir3")
@@ -96,6 +94,20 @@ class TestsAllFunctions(unittest.TestCase):
         self.shell._cd("documents")
         res = self.shell._chown("alena", "school/world.txt")
         self.assertEqual(res, "No such path")
+
+    def test_chown(self):
+        self.shell._cd("documents")
+        res = self.shell._chown("alena", "school")
+        for name in self.shell.list_uname:
+            if name[0] == "files_archive/documents/school":
+                self.assertEqual(name[1], "alena")
+
+    def test_chown_R(self):
+        self.shell._cd("documents")
+        res = self.shell._chown("alena", "school", "-R")
+        for name in self.shell.list_uname:
+            if name[0].startswith( "files_archive/documents/school"):
+                self.assertEqual(name[1], "alena")
 
 
 

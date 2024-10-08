@@ -2,6 +2,9 @@ import tarfile
 import argparse
 import os
 
+
+
+
 class Shell:
     path = "/"
     root_path = ""
@@ -9,6 +12,8 @@ class Shell:
     user_name = ""
     vfs_path = ""
     start_script =  ""
+
+    list_uname = []
 
     def __init__(self, user_name, vfs_path, script_path):
         self.user_name = user_name
@@ -98,22 +103,39 @@ class Shell:
 
             return "\n".join(result) + "\n" + f"Total size: {total_size} bytes"
 
+
+
     def _chown(self, user, path, operation=""):
         not_such_file = True
         path = self.get_path(path)[:-1]
+        print(path)
+        self.create_dictionary_username()
         with tarfile.open(self.vfs_path, "r") as tar:
             for member in tar.getmembers():
                 if operation == "-R":
                     if member.name.startswith(path):
                         member.uname = user
                         not_such_file = False
+                        for name in self.list_uname:
+                            if member.name.startswith(name[0]):
+                                name[1] = user
                 else:
                     if  member.name == path :
                         member.uname = user
-                        not_such_file = False
+                        for name in self.list_uname:
+                            if name[0] == path:
+                                name[1] = user
+
         if not_such_file:
             return "No such path"
+
     #---------------------------------------------
+
+    def create_dictionary_username(self):
+        with tarfile.open(self.vfs_path, "r") as tar:
+            for member in tar.getmembers():
+                self.list_uname.append([member.name, member.uname])
+
 
     def get_path(self, path):
         path = path.split("/")
