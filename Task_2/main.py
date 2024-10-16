@@ -41,10 +41,11 @@ def get_dependencies(data):
     return dependencies
 
 def build_graph(dependencies):
-    graph = '```mermaid\ngraph TD\n'
+    graph = 'graph TD\n'
     name = dependencies[0]
     for i in range(1,len(dependencies)):
         graph += f'\tA([{name}]) --> B{i}([{dependencies[i]}])\n'
+    graph = graph + '\n```mermaid\n' + graph + '```'
     graph +='```'
     return graph
 
