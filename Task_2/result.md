@@ -1,3 +1,4 @@
+```
 graph TD
 	A([Microsoft.Identity.Client]) --> B1([Microsoft.IdentityModel.Abstractions 1.0])
 	A([Microsoft.Identity.Client]) --> B2([System.Diagnostics.DiagnosticSource 6.35.0])
@@ -13,6 +14,7 @@ graph TD
 	A([Microsoft.Identity.Client]) --> B12([Microsoft.IdentityModel.Abstractions 4.3.0])
 	A([Microsoft.Identity.Client]) --> B13([System.Diagnostics.DiagnosticSource 6.35.0])
 
+```
 ```mermaid
 graph TD
 	A([Microsoft.Identity.Client]) --> B1([Microsoft.IdentityModel.Abstractions 1.0])
@@ -28,4 +30,4 @@ graph TD
 	A([Microsoft.Identity.Client]) --> B11([System.Security.SecureString 6.0.1])
 	A([Microsoft.Identity.Client]) --> B12([Microsoft.IdentityModel.Abstractions 4.3.0])
 	A([Microsoft.Identity.Client]) --> B13([System.Diagnostics.DiagnosticSource 6.35.0])
-``````
+```

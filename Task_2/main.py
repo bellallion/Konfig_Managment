@@ -45,8 +45,7 @@ def build_graph(dependencies):
     name = dependencies[0]
     for i in range(1,len(dependencies)):
         graph += f'\tA([{name}]) --> B{i}([{dependencies[i]}])\n'
-    graph = graph + '\n```mermaid\n' + graph + '```'
-    graph +='```'
+    graph = '```\n' + graph + '\n```'+ '\n```mermaid\n' + graph + '```'
     return graph
 
 def save_result(name_file, graph):
