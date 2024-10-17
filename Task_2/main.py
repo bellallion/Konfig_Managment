@@ -3,13 +3,14 @@ import re
 import requests
 from argparse import ArgumentParser
 
+
 def download_package(url, package_path):
     response = requests.get(url)
 
     if response.status_code == 200:
         with open(package_path, 'wb') as f:
             f.write(response.content)
-        print(f"Выполнена загрузка в {package_path}")
+        print(f"Выполнена загрузка в {package_path}...")
 
 
 def find_nuspec(nupkg_path):
@@ -45,17 +46,22 @@ def build_graph(dependencies):
     name = dependencies[0]
     for i in range(1,len(dependencies)):
         graph += f'\tA([{name}]) --> B{i}([{dependencies[i]}])\n'
-    graph = '```\n' + graph + '\n```'+ '\n```mermaid\n' + graph + '```'
     return graph
 
 def save_result(name_file, graph):
+    graph = '```\n' + graph + '\n```'
     with open(name_file, 'w', encoding='utf-8') as f:
         f.write(graph)
-    print(f"Код для описания графа зависимостей сохранен в: {name_file}")
+    print(f"Код для описания графа зависимостей сохранен в: {name_file}...")
+
+def visualize_graph(visualizer_path, graph_code):
+    with open(visualizer_path, 'w', encoding='utf-8') as f:
+        f.write(graph_code)
+    print(f"Визуализация графа зависимостей сохранена в: {visualizer_path}...")
 
 def main():
     parser = ArgumentParser(description="Visualization of the dependency graph")
-    #parser.add_argument("visualizer_path", help="Path to visualizer program")
+    parser.add_argument("visualizer_path", help="Path to visualizer program")
     parser.add_argument("nupkg_path", help="Path to the .nupkg package")
     parser.add_argument("result_path", help="Path to the result file")
     parser.add_argument("repository_url", help="URL of the package repository")
@@ -64,7 +70,6 @@ def main():
 
     download_package(args.repository_url, args.nupkg_path)
 
-
     dependencies = find_nuspec(args.nupkg_path)
 
     # Create graph
@@ -72,7 +77,7 @@ def main():
 
     save_result(args.result_path, graph)
 
-    # print(mermaid_graph)
+    visualize_graph(args.visualizer_path, graph)
 
 if __name__ == "__main__":
     main()
