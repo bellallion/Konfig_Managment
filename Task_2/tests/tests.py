@@ -20,7 +20,6 @@ class TestDependencyGraph(unittest.TestCase):
         with tempfile.NamedTemporaryFile(delete=False, suffix='.nupkg') as temp_nupkg:
             nupkg_path = temp_nupkg.name
 
-            # Создаем .nuspec файл
             nuspec_content = b"""<?xml version="1.0" encoding="utf-8"?>
             <package>
                 <metadata>
@@ -32,16 +31,13 @@ class TestDependencyGraph(unittest.TestCase):
                 </metadata>
             </package>"""
 
-            # Создаем zip-архив
             with zipfile.ZipFile(nupkg_path, 'w') as zf:
                 zf.writestr('TestPackage.nuspec', nuspec_content)
 
-        # Проверяем, что find_nuspec возвращает правильные зависимости
         expected_dependencies = ['TestPackage', 'package1 1.0', 'package2 1.0.0']
         result = m.find_nuspec(nupkg_path)
         self.assertEqual(result, expected_dependencies)
 
-        # Удаляем временный файл
         os.remove(nupkg_path)
 
 
