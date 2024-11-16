@@ -11,13 +11,13 @@ in_dict = False
 in_array = False
 cur_value = ''
 cur_name = ''
-
+# вычисление выражения
 def calculating_constant(expression):
     if expression in constants:
         return constants[expression]
     else:
         return None
-
+# количество открытых словарей
 def parse_brackets(new_kol_bracket, line, num):
     global kol_bracket, in_dict
     kol_bracket = new_kol_bracket
@@ -28,7 +28,7 @@ def parse_brackets(new_kol_bracket, line, num):
         in_dict = False
     if kol_bracket < 0:
         raise SyntaxError(f"Ожидается {'{'} : {line} (строка {num + 1})")
-
+# количество открытых массивов
 def parse_brackets_array(new_kol_array, line, num):
     global kol_array, in_array
     kol_array = new_kol_array
@@ -53,6 +53,7 @@ def parse_value(value, line, num, name):
         value = value.strip()
         values = line[2:].split()
         for v in values:
+            # обработка строки
             str_match = re.search(r'".+"', v)
             if str_match:
                 if str_match[0] != v:
@@ -60,6 +61,7 @@ def parse_value(value, line, num, name):
                 result += f'{v}, '
                 cur_value += f'{v}, '
                 continue
+            # обработка числа
             num_match = re.search(r"\d+\.?\d*", v)
             if num_match:
                 if num_match[0] != v:
@@ -68,6 +70,7 @@ def parse_value(value, line, num, name):
                 result += f'{v}, '
                 cur_value += f'{v}, '
                 continue
+            # обработка выражения
             exp_match = re.search(r"\.[A-Z]+\.", v)
             if exp_match:
                 expression = exp_match[0].strip('.')
@@ -89,8 +92,6 @@ def parse_value(value, line, num, name):
             result = result[:-2] + ' '
             cur_value = cur_value[:-2] + ' '
 
-        # result += (kol_bracket+1) * '  ' + "]"
-        # cur_value += (kol_bracket+1) * '  ' + ']'
         result += "]"
         cur_value += ']'
         if not in_array:
@@ -115,6 +116,7 @@ def parse_value(value, line, num, name):
         if value[-1] != ";":
             raise SyntaxError(f"Неверный формат: {line} (строка {num + 1})")
         value = value.strip(";")
+        # обработка строки
         str_match = re.search(r'".+"', value)
         if str_match:
             if str_match[0] != value:
@@ -127,6 +129,7 @@ def parse_value(value, line, num, name):
                 result += f'{value},\n'
                 cur_value += f'{value},\n'
             return
+        # обработка числа
         num_match = re.search(r"\d+\.?\d*", value)
         if num_match:
             if num_match[0] != value:
@@ -139,6 +142,7 @@ def parse_value(value, line, num, name):
                 result += f'{value},\n'
                 cur_value += f'{value},\n'
             return
+        # обработка выражения
         exp_match = re.search(r"\.[A-Z]+\.", value)
         if exp_match:
             expression = exp_match[0].strip('.')
@@ -147,7 +151,6 @@ def parse_value(value, line, num, name):
                 # Синтаксические ошибки выявляются с выдачей сообщений.
                 raise SyntaxError(f"Неверное выражение: {expression} (строка {num + 1})")
             else:
-                # line = line.replace(exp_match[0], res)
                 if not in_dict:
                     result += str(res) + "\n}\n"
                     cur_value += str(res) + "\n}\n"
@@ -171,7 +174,7 @@ def parse_text(text):
         value = ""
 
         #пустая строка или комментарий
-        if not line or line.startswith('/'):
+        if not line or line.startswith('\\'):
             continue
 
         # словарь
@@ -192,21 +195,6 @@ def parse_text(text):
             if in_dict and line[1] != ";":
                 raise SyntaxError(f"Неверный формат объявления константы: {line} (строка {num + 1})")
             value = line[1:]
-
-        # выражение
-        # while True:
-        #     exp_match = re.search(r"\.[A-Z]+\.", line)
-        #     if exp_match is None:
-        #         break
-        #
-        #     expression = exp_match[0].strip('.')
-        #     print(exp_match[0])
-        #     res = calculating_constant(expression)
-        #     if res is None:
-        #         #Синтаксические ошибки выявляются с выдачей сообщений.
-        #         raise ValueError(f"Неверное выражение: {expression} (строка {num + 1})")
-        #     else:
-        #          line = line.replace(exp_match[0], res)
 
         # обработка констант
 
@@ -241,9 +229,9 @@ def parse_text(text):
             print(value)
             values = value.split()
             for v in values:
-                parse_value(v, line, num, name)
+                parse_value(v, line, num, cur_name)
         else:
-            parse_value(value, line, num, name)
+            parse_value(value, line, num, cur_name)
 
     return result
 
@@ -263,32 +251,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    # print("------------------------------")
-    # print(constants)
-
-
-
-
-'''
-тест 1
-let B = '( 6 7 );
-let A = {
-T = .B.;
-};
-let O = "tyt";
-let T = {
-P = 5;
-};
-let K = {
-J = 0;
-U = "sdfsd";
-P = {
-I = 9;
-};
-};
-let Z = .K.;
-'''
-'''
-let B: 5;
-let K = ..6;
-'''

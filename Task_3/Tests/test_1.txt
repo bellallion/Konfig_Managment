@@ -1,0 +1,18 @@
+\ Конфигурация автопарка
+let KOL = 50;
+
+let CARS = '( "Toyota" "Camry" "Honda" "Accord" "BMW" "Audi" );
+
+let DATA = {
+    MODEL = "Toyota Camry";
+    YEAR = 2020;
+    MILEAGE = 15000;
+    COLOR = "Черный";
+};
+
+let LISTOFCARS = {
+    CARONE = "Toyota Camry";
+    CARTWO = "Honda Accord";
+    CARTREE = "BMW 3 Series";
+};
+let NEWCARS = .CARS.;
