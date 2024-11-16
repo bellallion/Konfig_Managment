@@ -239,7 +239,7 @@ def parse_text(text):
 
 def main():
     print("Введите текст на учебном конфигурационном языке:")
-    text_input = sys.stdin.read() # or readlines
+    text_input = sys.stdin.read()
     # ctrl + D
     text_result = parse_text(text_input)
 
