@@ -25,12 +25,21 @@ tar. Эмулятор должен работать в режиме CLI.
 - run_program() - запуск программы
 ### Демонстрация работоспособности
 Ниже показаны примеры использования данной программы.
-![Image alt](Task_1/Image/img_ls.png )
-![Image alt](Task_1/Image/img_cd__tail_exit.png )
+<p align="center">
+  <img  src="Task_1/Image/img_ls.png">
+</p>
+
+<p align="center">
+  <img  src="Task_1/Image/img_cd__tail_exit.png">
+</p>
+
 ### Результаты тестирования
 Для каждой из требуемых функций были написаны тесты. Результат их прохождения показан ниже.
 
-![Image alt](Task_1/Image/img_tests.png )
+<p align="center">
+  <img  src="Task_1/Image/img_tests.png">
+</p>
+
 ## Задание 2
 ### Описание
 Разработать инструмент командной строки для визуализации графа
@@ -58,13 +67,23 @@ tar. Эмулятор должен работать в режиме CLI.
 ### Демонстрация работоспособности
 Ниже показаны примеры использования данной программы.
 Отображение графа зависимостей в виде кода:
-![Image alt](Task_2/Image/result_code.png )
+
+<p align="center">
+  <img  src="Task_2/Image/result_code.png">
+</p>
+
 Визуализация графа:
-![Image alt](Task_2/Image/result_graph.png )
+
+<p align="center">
+  <img  src="Task_2/Image/result_graph.png">
+</p>
+
 ### Результаты тестирования
 Для каждой из требуемых функций были написаны тесты. Результат их прохождения показан ниже.
 
-![Image alt](Task_2/Image/tests.png )
+<p align="center">
+  <img  src="Task_2/Image/tests.png">
+</p>
 
 ## Задание 3
 ### Описание
@@ -117,12 +136,20 @@ let имя = значение;
 Ниже показаны примеры описания конфигураций из разных предметных областей.
 
 Тест 1:
-![Image alt](Task_3/Image/result_test_1.png)
+
+<p align="center">
+  <img  src="Task_3/Image/result_test_1.png">
+</p>
 
 Тест 2:
 
-![Image alt](Task_3/Image/result_test_2.png )
+<p align="center">
+  <img  src="Task_3/Image/result_test_2.png">
+</p>
+
 ### Результаты тестирования
 Для каждой из требуемых функций были написаны тесты. Результат их прохождения показан ниже.
 
-![Image alt](Task_3/Image/tests.png )
+<p align="center">
+  <img  src="Task_3/Image/tests.png">
+</p>
