@@ -1,0 +1,20 @@
+\ Конфигурация профиля пользователя
+let KOL = 100;
+
+let USERS = '( "Alice" "Bob" "Charlie" "David" );
+
+let YEARS = '( 15 20 18 14 7 );
+
+let PROFILE = {
+    NAME = "Alice";
+    YEAR = 28;
+    EMAIL = "alice@example.com";
+    HOBBIES = '( "READING" "TRAVELING" );
+};
+
+let ROFILES = {
+    OLDUSERS = .USERS.;
+    USERTWO = "Bob";
+    USERTHREE = "Charlie";
+};
+
