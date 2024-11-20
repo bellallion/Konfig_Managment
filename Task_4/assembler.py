@@ -42,7 +42,7 @@ class Assembler:
     def int_to_hex(self, a, b=0):
         if b:
             self.log({"A": a, "B": b})
-            # Формируем биты для команды с D
+            # Формируем биты для команды с B
             a_bin = bin(a)[2:].zfill(7)
             if a == 45:
                 b_bin = bin(b)[2:].zfill(11)
@@ -51,7 +51,7 @@ class Assembler:
             s = b_bin + a_bin
         else:
             self.log({"A": a})
-            # Формируем биты для команды без D
+            # Формируем биты для команды без B
             a_bin = bin(a)[2:].zfill(7)
             s = a_bin
         s = s.zfill(24)

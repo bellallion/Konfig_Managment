@@ -251,16 +251,17 @@ let имя = значение;
 
 ### Результаты тестирования
 Для каждой из требуемых функций были написаны тесты. Результат их прохождения показан ниже.
-Тестирование ассемблера:
 <p align="center">
-  <img  src="Task_3/Image/tests.png">
-</p>
-Тестирование интерпретатора:
-<p align="center">
-  <img  src="Task_4/Image/run_interpreter.png">
+  <img  src="Task_4/Image/tests.png">
 </p>
 
 Была выполнена тестовая программа. Результат выполнения продемонстрирован ниже.
+
+Исходный файл:
 <p align="center">
-  <img  src="Task_4/Image/run_interpreter.png">
+  <img  src="Task_4/Image/test_pr1.png">
+</p>
+Результат применения bswap():
+<p align="center">
+  <img  src="Task_4/Image/test_pr2.png">
 </p>
