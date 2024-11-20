@@ -1,8 +1,6 @@
 import argparse
 import csv
 
-
-
 class Assembler:
 
     def __init__(self, input_file, binary_file, log_file):

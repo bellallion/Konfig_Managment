@@ -17,7 +17,6 @@ class Interpreter:
 
         with open(self.binary_file, 'rb') as f:
             self.code = f.read()
-            print(self.code)
         # Перевод бинарных данных в строку битов
         bits = ''.join(
             ''.join(f"{byte:08b}" for byte in self.code[i:i + 3][::-1])
@@ -25,22 +24,18 @@ class Interpreter:
         )
         # Разделение на команды длиной 24 бит (3 байта)
         commands = [bits[i:i + 24] for i in range(0, len(bits), 24)]
-        print(commands)
         for command in commands:
             command_type = int(command[-7:], 2)
-            print(command[-7:])
             match command_type:
                 case 45: # новый элемент в стеке (константа)
                     value = int(command[-18:-7], 2)
                     self.stack.append(value)
                 case 80: # новый элемент в стеке (чтение из памяти по адресу)
                     address = int(command[-17:-7], 2)
-                    print('80' + str(address))
                     value = self.memory[address]
                     self.stack.append(value)
                 case 85: # элемент, снятый с вершины стека
                     address = int(command[-17:-7], 2)
-                    print('85' + str(address))
                     value = self.stack.pop()
                     self.memory[address] = value
                 case 40: #  ячейка памяти по адресу, снятого с вершины стека
@@ -48,7 +43,6 @@ class Interpreter:
                         raise IndexError(f"Невозможно выполнить данную операцию")
                     value = self.stack.pop()
                     self.memory[value] = value
-            print(self.stack)
         self.save_results()
 
 
